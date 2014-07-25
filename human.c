@@ -21,39 +21,6 @@ data {
 } HumanData;
 
 // メンバ関数の定義
-var Human_New(var self, var_list vl);
-var Human_Delete(var self);
-size_t Human_Size(void);
-
-void Human_Assign(var self, var obj);
-var Human_Copy(var self);
-
-var Human_Eq(var self, var obj);
-
-int Human_Show(var self, var output, int pos);
-int Human_Look(var self, var input, int pos);
-
-void Human_Introduce(var self);
-var Human_GetName(var self);
-
-instance(Human, New) = { Human_New, Human_Delete, Human_Size };
-instance(Human, Assign) = { Human_Assign };
-instance(Human, Copy) = { Human_Copy };
-instance(Human, Eq) = { Human_Eq };
-instance(Human, Show) = { Human_Show, Human_Look };
-instance(Human, HumanBehavior) = { Human_Introduce, Human_GetName };
-
-var Human = type_data {
-  type_begin(Human),
-  type_entry(Human, New),
-  type_entry(Human, Assign),
-  type_entry(Human, Copy),
-  type_entry(Human, Eq),
-  type_entry(Human, Show),
-  type_entry(Human, HumanBehavior),
-  type_end(Human)
-};
-
 var Human_New(var self, var_list vl) {
   HumanData* v = cast(self, Human);
   v->name = var_list_get(vl);
@@ -107,6 +74,24 @@ var Human_GetName(var self) {
     HumanData *v = cast(self, Human);
     return v->name;
 }
+
+instance(Human, New) = { Human_New, Human_Delete, Human_Size };
+instance(Human, Assign) = { Human_Assign };
+instance(Human, Copy) = { Human_Copy };
+instance(Human, Eq) = { Human_Eq };
+instance(Human, Show) = { Human_Show, Human_Look };
+instance(Human, HumanBehavior) = { Human_Introduce, Human_GetName };
+
+var Human = type_data {
+  type_begin(Human),
+  type_entry(Human, New),
+  type_entry(Human, Assign),
+  type_entry(Human, Copy),
+  type_entry(Human, Eq),
+  type_entry(Human, Show),
+  type_entry(Human, HumanBehavior),
+  type_end(Human)
+};
 
 
 // 人物の比較
